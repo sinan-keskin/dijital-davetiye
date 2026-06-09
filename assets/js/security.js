@@ -111,11 +111,21 @@
   });
 
   /* ─── 5. DEVTOOLS TESPİTİ ─── */
+  // iframe içinde çalışıyorsak (önizleme modu) boyut tespitini devre dışı bırak.
+  // outerWidth/outerHeight iframe içinde ana pencerenin boyutunu döndürür,
+  // bu da küçük iframe viewport'uyla kıyaslandığında yanlış pozitif üretir.
+  const IS_IN_IFRAME = (function () {
+    try { return window.self !== window.top; } catch (e) { return true; }
+  })();
+
   let devToolsOpen = false;
 
   function detectDevTools() {
+    // iframe içindeyken bu kontrolü atla — yanlış tetikleme olur
+    if (IS_IN_IFRAME) return;
+
     const threshold = 160;
-    const widthDiff = window.outerWidth - window.innerWidth > threshold;
+    const widthDiff  = window.outerWidth  - window.innerWidth  > threshold;
     const heightDiff = window.outerHeight - window.innerHeight > threshold;
 
     if ((widthDiff || heightDiff) && !devToolsOpen) {
@@ -129,63 +139,56 @@
   }
 
   function onDevToolsOpened() {
-    // İçeriği temizle ve uyarı göster
-    const mainContent = document.getElementById('main-content') || document.body;
     showProtectionOverlay('Geliştirici araçları bu sayfada kullanılamaz. Şablonlarımız telif hakkı ile korunmaktadır.');
   }
 
-  // Sürekli kontrol
-  setInterval(detectDevTools, 500);
-
-  // Console trick — DevTools açıkken bu çalışır
-  const devToolsTrap = /./;
-  devToolsTrap.toString = function () {
-    onDevToolsOpened();
-    return '';
-  };
+  // Sürekli kontrol — sadece üst pencerede çalışır
+  if (!IS_IN_IFRAME) {
+    setInterval(detectDevTools, 500);
+  }
 
   /* ─── 6. BLUR KORUMASI — SEKME DEĞİŞİMİ ─── */
-  let blurTimeout;
-  const BLUR_AMOUNT = '15px';
+  // iframe içindeyken blur'u devreye alma — zaten ana sayfanın modal'ı içindedir
+  if (!IS_IN_IFRAME) {
+    let blurTimeout;
+    const BLUR_AMOUNT = '15px';
 
-  function applyBlur() {
-    const content = document.getElementById('main-content');
-    if (content) {
-      content.style.filter = `blur(${BLUR_AMOUNT})`;
-      content.style.transition = 'filter 0.5s ease';
-      content.style.userSelect = 'none';
+    function applyBlur() {
+      const content = document.getElementById('main-content');
+      if (content) {
+        content.style.filter = 'blur(' + BLUR_AMOUNT + ')';
+        content.style.transition = 'filter 0.5s ease';
+        content.style.userSelect = 'none';
+      }
     }
+
+    function removeBlur() {
+      const content = document.getElementById('main-content');
+      if (content) {
+        content.style.filter = 'none';
+        content.style.userSelect = 'none';
+      }
+    }
+
+    // Sekme değişimi
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) { applyBlur(); }
+      else { blurTimeout = setTimeout(removeBlur, 300); }
+    });
+
+    // Fare sayfadan çıkınca
+    document.addEventListener('mouseleave', function (e) {
+      if (e.clientY <= 0 || e.clientX <= 0 ||
+          e.clientX >= window.innerWidth || e.clientY >= window.innerHeight) {
+        applyBlur();
+      }
+    });
+
+    document.addEventListener('mouseenter', function () {
+      clearTimeout(blurTimeout);
+      removeBlur();
+    });
   }
-
-  function removeBlur() {
-    const content = document.getElementById('main-content');
-    if (content) {
-      content.style.filter = 'none';
-      content.style.userSelect = 'none';
-    }
-  }
-
-  // Sekme değişimi
-  document.addEventListener('visibilitychange', function () {
-    if (document.hidden) {
-      applyBlur();
-    } else {
-      blurTimeout = setTimeout(removeBlur, 300);
-    }
-  });
-
-  // Fare sayfadan çıkınca
-  document.addEventListener('mouseleave', function (e) {
-    if (e.clientY <= 0 || e.clientX <= 0 ||
-        e.clientX >= window.innerWidth || e.clientY >= window.innerHeight) {
-      applyBlur();
-    }
-  });
-
-  document.addEventListener('mouseenter', function () {
-    clearTimeout(blurTimeout);
-    removeBlur();
-  });
 
   /* ─── 7. CSS İLE EK KORUMA ─── */
   const style = document.createElement('style');
@@ -208,17 +211,25 @@
   document.head.appendChild(style);
 
   /* ─── 8. IFRAME KORUMASI ─── */
-  // Eğer bu sayfa bir iframe içindeyse ve üst domain farklıysa engelle
-  try {
-    if (window.self !== window.top) {
-      const parentOrigin = document.referrer ? new URL(document.referrer).origin : null;
-      const currentOrigin = window.location.origin;
-      // Aynı domain'den iframe açılmasına izin ver (kendi önizleme sistemimiz)
-      // Farklı domain ise uyarı ver
+  // Kendi önizleme modalımızdan gelen iframe'lere izin ver.
+  // Farklı bir domain'den iframe ile gömülmeye çalışılırsa engelle.
+  if (IS_IN_IFRAME) {
+    try {
+      const parentHost = window.parent.location.hostname;
+      const myHost     = window.location.hostname;
+      // Aynı ana domain'den açılıyorsa (kendi sitemiz) — tamam
+      const allowed = (parentHost === myHost) ||
+                      parentHost.endsWith('github.io') ||
+                      parentHost.endsWith('sinankeskin.com.tr') ||
+                      parentHost === 'localhost' ||
+                      parentHost === '127.0.0.1';
+      if (!allowed) {
+        document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;font-family:sans-serif;color:#c9a84c;background:#0a0a1a;">Bu içerik korumalıdır.</div>';
+      }
+    } catch (e) {
+      // Cross-origin parent — farklı domain, izin yok
+      document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;font-family:sans-serif;color:#c9a84c;background:#0a0a1a;">Bu içerik korumalıdır.</div>';
     }
-  } catch (e) {
-    // Cross-origin erişim denemesi — engelle
-    // document.body.innerHTML = '';
   }
 
   console.log = function () {};

@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Elif & Kerem — Düğün Davetiyesi</title>
+  <meta name="description" content="Elif ve Kerem'in düğün davetiyesi. Lütfen aramıza katılın." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" />
+  <style>
+    /* ══════════════════════════════════════
+       ŞABLON 3: MODERN KARANLIK
+       ══════════════════════════════════════ */
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+    :root {
+      --purple:      #8b5cf6;
+      --purple-light:#a78bfa;
+      --cyan:        #06b6d4;
+      --cyan-light:  #67e8f9;
+      --pink:        #ec4899;
+      --bg:          #030712;
+      --bg-2:        #080f1e;
+      --bg-3:        #0c1426;
+      --text:        #f1f5f9;
+      --text-muted:  #64748b;
+      --glass:       rgba(139,92,246,0.06);
+      --glass-border:rgba(139,92,246,0.2);
+      --neon-glow-p: 0 0 20px rgba(139,92,246,0.5);
+      --neon-glow-c: 0 0 20px rgba(6,182,212,0.5);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── NEON CANVAS ── */
+    #neon-canvas {
+      position: fixed; inset: 0; z-index: 0;
+      pointer-events: none;
+    }
+
+    section { position: relative; z-index: 1; }
+
+    /* ══ HERO ══ */
+    .s3-hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 60px 24px;
+      position: relative; overflow: hidden;
+    }
+
+    /* Grid lines background */
+    .s3-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(139,92,246,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(139,92,246,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      z-index: 0;
+    }
+
+    /* Hero glow blobs */
+    .s3-hero-blob {
+      position: absolute; border-radius: 50%;
+      filter: blur(80px); pointer-events: none;
+    }
+    .s3-hero-blob-1 {
+      width: 500px; height: 500px; top: -100px; left: -150px;
+      background: radial-gradient(circle, rgba(139,92,246,0.15), transparent 70%);
+      animation: blobFloat 8s ease-in-out infinite;
+    }
+    .s3-hero-blob-2 {
+      width: 400px; height: 400px; bottom: -80px; right: -100px;
+      background: radial-gradient(circle, rgba(6,182,212,0.12), transparent 70%);
+      animation: blobFloat 10s ease-in-out infinite reverse;
+    }
+    @keyframes blobFloat { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(30px,-20px) scale(1.05)} 66%{transform:translate(-20px,30px) scale(0.95)} }
+
+    .s3-hero-content { position: relative; z-index: 1; }
+
+    .s3-label {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 20px;
+      background: rgba(139,92,246,0.1);
+      border: 1px solid rgba(139,92,246,0.3);
+      border-radius: 50px;
+      font-size: 0.72rem; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--purple-light);
+      margin-bottom: 32px;
+      animation: fadeInDown 0.8s ease 0.3s both;
+    }
+
+    .s3-label .blink {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--cyan); animation: blink 1.5s ease infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+    @keyframes fadeInDown { from{opacity:0;transform:translateY(-20px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes fadeInUp   { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes fadeIn     { from{opacity:0} to{opacity:1} }
+
+    .s3-names {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(3rem, 9vw, 7rem);
+      font-weight: 700; line-height: 1.1;
+      margin-bottom: 8px;
+      animation: fadeIn 1s ease 0.5s both;
+    }
+
+    .s3-name-1 {
+      display: block;
+      background: linear-gradient(135deg, var(--purple-light), var(--cyan-light));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      filter: drop-shadow(0 0 30px rgba(139,92,246,0.5));
+    }
+
+    .s3-ampersand {
+      display: block;
+      font-size: clamp(1.5rem, 4vw, 3rem);
+      color: var(--text-muted); font-weight: 300;
+      margin: 4px 0;
+    }
+
+    .s3-name-2 {
+      display: block;
+      background: linear-gradient(135deg, var(--cyan-light), var(--purple-light));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      filter: drop-shadow(0 0 30px rgba(6,182,212,0.5));
+    }
+
+    .s3-divider {
+      display: flex; align-items: center; gap: 16px;
+      margin: 28px auto; max-width: 320px;
+      animation: fadeIn 1s ease 0.8s both;
+    }
+    .s3-divider-line {
+      flex: 1; height: 1px;
+      background: linear-gradient(to right, transparent, var(--purple), transparent);
+    }
+    .s3-divider-icon { font-size: 1rem; }
+
+    .s3-date-wrap {
+      animation: fadeInUp 0.8s ease 0.9s both;
+    }
+    .s3-date-label {
+      font-size: 0.72rem; letter-spacing: 4px;
+      text-transform: uppercase; color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .s3-date {
+      font-size: 1.6rem; font-weight: 300;
+      background: linear-gradient(135deg, var(--purple-light), var(--cyan));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; margin-bottom: 8px;
+    }
+    .s3-date-location { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 40px; }
+
+    .s3-cta {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 32px;
+      background: linear-gradient(135deg, var(--purple), var(--cyan));
+      border-radius: 50px; color: white; font-weight: 600;
+      font-size: 0.95rem; text-decoration: none;
+      box-shadow: 0 0 30px rgba(139,92,246,0.4), 0 0 60px rgba(6,182,212,0.2);
+      transition: all 0.3s;
+      animation: fadeInUp 0.8s ease 1.2s both;
+    }
+    .s3-cta:hover { transform: translateY(-3px); box-shadow: 0 0 40px rgba(139,92,246,0.6), 0 0 80px rgba(6,182,212,0.3); }
+
+    .s3-scroll {
+      position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center;
+      gap: 8px; color: var(--text-muted); font-size: 0.7rem;
+      letter-spacing: 2px; text-transform: uppercase;
+      animation: fadeIn 1s ease 1.5s both;
+    }
+    .s3-scroll-line { width:1px; height:40px; background: linear-gradient(to bottom, var(--purple), transparent); animation: s3scroll 2s ease infinite; }
+    @keyframes s3scroll { 0%{transform:scaleY(0);transform-origin:top} 50%{transform:scaleY(1);transform-origin:top} 100%{transform:scaleY(0);transform-origin:bottom} }
+
+    /* ── MUSIC BUTTON ── */
+    .music-btn {
+      position: fixed; bottom: 30px; right: 30px; z-index: 100;
+      width: 56px; height: 56px;
+      background: linear-gradient(135deg, var(--purple), var(--cyan));
+      border: none; border-radius: 50%; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      box-shadow: 0 0 20px rgba(139,92,246,0.5);
+      transition: all 0.3s;
+    }
+    .music-btn:hover { transform: scale(1.1); box-shadow: 0 0 40px rgba(139,92,246,0.8); }
+    .music-btn.playing { animation: neonPulse 1.5s ease infinite; }
+    @keyframes neonPulse { 0%,100%{box-shadow:0 0 20px rgba(139,92,246,0.5)} 50%{box-shadow:0 0 50px rgba(139,92,246,0.9), 0 0 80px rgba(6,182,212,0.4)} }
+
+    /* ── COUNTDOWN ── */
+    .s3-countdown {
+      padding: 80px 24px; text-align: center;
+      background: linear-gradient(135deg, var(--bg-2), var(--bg));
+      position: relative;
+    }
+    .s3-countdown::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(to right, transparent, var(--purple), var(--cyan), transparent);
+    }
+
+    .s3-section-title {
+      font-size: 0.7rem; letter-spacing: 4px;
+      text-transform: uppercase; color: var(--purple-light);
+      margin-bottom: 16px;
+    }
+
+    .s3-section-h2 {
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 600; margin-bottom: 48px;
+    }
+
+    .s3-countdown-grid { display:flex; gap:20px; justify-content:center; flex-wrap:wrap; }
+
+    .s3-cbox {
+      min-width: 100px; padding: 24px 20px;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px; text-align: center;
+      position: relative; overflow: hidden;
+      transition: all 0.3s;
+    }
+    .s3-cbox:hover {
+      border-color: var(--purple);
+      box-shadow: 0 0 20px rgba(139,92,246,0.2);
+    }
+    .s3-cbox::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(to right, var(--purple), var(--cyan));
+    }
+
+    .s3-cnum {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 3rem; font-weight: 700;
+      background: linear-gradient(135deg, var(--purple-light), var(--cyan-light));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; display: block; line-height: 1; margin-bottom: 8px;
+    }
+    .s3-clabel { font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); }
+
+    /* ── GALLERY ── */
+    .s3-gallery {
+      padding: 80px 24px;
+      background: var(--bg-3);
+      position: relative;
+    }
+    .s3-gallery::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(to right, transparent, var(--cyan), var(--purple), transparent);
+    }
+
+    .slider-wrap {
+      position:relative; max-width:800px; margin:0 auto;
+      border-radius:16px; overflow:hidden;
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 0 40px rgba(139,92,246,0.15), 0 20px 60px rgba(0,0,0,0.6);
+    }
+    .slider-track { display:flex; transition:transform 0.6s cubic-bezier(.23,1,.32,1); }
+    .slider-slide { min-width:100%; aspect-ratio:16/10; }
+    .slider-slide img { width:100%; height:100%; object-fit:cover; display:block; }
+
+    .slider-btn {
+      position:absolute; top:50%; transform:translateY(-50%);
+      width:44px; height:44px; border:none; border-radius:50%;
+      background:rgba(3,7,18,0.8); color:var(--purple-light);
+      font-size:1.2rem; cursor:pointer;
+      border: 1px solid var(--glass-border);
+      transition:all 0.3s;
+      display:flex; align-items:center; justify-content:center;
+      backdrop-filter:blur(10px);
+    }
+    .slider-btn:hover { background:var(--purple); color:white; box-shadow:0 0 15px rgba(139,92,246,0.5); }
+    .slider-btn.prev { left:16px; }
+    .slider-btn.next { right:16px; }
+    .slider-dots { position:absolute; bottom:16px; left:50%; transform:translateX(-50%); display:flex; gap:8px; }
+    .slider-dot { width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,0.2); border:none; cursor:pointer; transition:all 0.3s; }
+    .slider-dot.active { background:var(--purple-light); box-shadow:0 0 8px var(--purple); transform:scale(1.3); }
+
+    /* ── DETAILS ── */
+    .s3-details {
+      padding: 80px 24px;
+      background: var(--bg-2);
+      position: relative;
+    }
+    .s3-details::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(to right, transparent, var(--purple), transparent);
+    }
+
+    .s3-details-inner { max-width:800px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:28px; }
+
+    .s3-detail-card {
+      padding: 32px; text-align: center;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px; position: relative;
+      transition: all 0.3s;
+    }
+    .s3-detail-card:hover {
+      border-color: var(--purple);
+      box-shadow: 0 0 30px rgba(139,92,246,0.15);
+      transform: translateY(-4px);
+    }
+    .s3-detail-card::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(to right, var(--purple), var(--cyan));
+    }
+
+    .s3-detail-icon { font-size: 2rem; margin-bottom: 16px; display: block; }
+    .s3-detail-card h3 {
+      font-size: 0.7rem; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--purple-light);
+      margin-bottom: 12px;
+    }
+    .s3-detail-card p { font-size: 1.1rem; line-height: 1.6; font-weight: 300; }
+    .s3-detail-sub { font-size: 0.85rem; color: var(--text-muted); margin-top: 8px; }
+
+    .map-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-top: 16px; padding: 10px 22px;
+      background: linear-gradient(135deg, var(--purple), var(--cyan));
+      color: white; font-size: 0.82rem; font-weight: 600;
+      letter-spacing: 1px; text-transform: uppercase;
+      border-radius: 50px; text-decoration: none;
+      transition: all 0.3s;
+      box-shadow: 0 0 15px rgba(139,92,246,0.3);
+    }
+    .map-btn:hover { transform: translateY(-2px); box-shadow: 0 0 25px rgba(139,92,246,0.6); }
+
+    /* ── MESSAGE ── */
+    .s3-message { padding: 80px 24px; background: var(--bg); text-align: center; }
+    .s3-message-inner {
+      max-width: 600px; margin: 0 auto;
+      padding: 48px; background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      box-shadow: 0 0 40px rgba(139,92,246,0.1);
+      position: relative;
+    }
+    .s3-message-inner::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(to right, var(--purple), var(--pink), var(--cyan));
+    }
+
+    .s3-message-icon { font-size: 2.5rem; margin-bottom: 24px; display: block; }
+    .s3-message-text {
+      font-size: 1.15rem; line-height: 1.9; color: rgba(241,245,249,0.8);
+      font-weight: 300; margin-bottom: 28px;
+    }
+    .s3-message-sign {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.4rem; font-weight: 600;
+      background: linear-gradient(135deg, var(--purple-light), var(--cyan-light));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── FOOTER ── */
+    .s3-footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--bg-2);
+      border-top: 1px solid var(--glass-border);
+      position: relative;
+    }
+    .s3-footer::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(to right, transparent, var(--purple), var(--cyan), transparent);
+    }
+    .s3-footer p { font-size: 0.8rem; color: var(--text-muted); letter-spacing: 1px; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .s3-details-inner { grid-template-columns: 1fr; }
+      .s3-countdown-grid { gap: 12px; }
+      .s3-cbox { min-width: 70px; padding: 16px 12px; }
+      .s3-cnum { font-size: 2rem; }
+      .s3-message-inner { padding: 32px 20px; }
+    }
+  </style>
+</head>
+<body id="main-content">
+
+<!-- Neon canvas -->
+<canvas id="neon-canvas" aria-hidden="true"></canvas>
+
+<!-- ══ HERO ══ -->
+<section class="s3-hero" id="hero">
+  <div class="s3-hero-blob s3-hero-blob-1" aria-hidden="true"></div>
+  <div class="s3-hero-blob s3-hero-blob-2" aria-hidden="true"></div>
+
+  <div class="s3-hero-content">
+    <div class="s3-label">
+      <span class="blink"></span>
+      Dijital Düğün Davetiyesi
+    </div>
+
+    <div class="s3-names">
+      <!-- DÜZENLE: İsim 1 -->
+      <span class="s3-name-1">Elif</span>
+      <span class="s3-ampersand">&amp;</span>
+      <!-- DÜZENLE: İsim 2 -->
+      <span class="s3-name-2">Kerem</span>
+    </div>
+
+    <div class="s3-divider" aria-hidden="true">
+      <div class="s3-divider-line"></div>
+      <span class="s3-divider-icon">💜</span>
+      <div class="s3-divider-line"></div>
+    </div>
+
+    <div class="s3-date-wrap">
+      <div class="s3-date-label">Sizi Özel Günümüze Bekliyoruz</div>
+      <!-- DÜZENLE: Tarih -->
+      <div class="s3-date">20 Aralık 2025</div>
+      <!-- DÜZENLE: Şehir -->
+      <div class="s3-date-location">İstanbul, Türkiye</div>
+    </div>
+
+    <a href="#countdown" class="s3-cta" id="hero-cta">
+      <span>Detayları Gör</span>
+      <span>↓</span>
+    </a>
+  </div>
+
+  <div class="s3-scroll" aria-label="Aşağı kaydırın">
+    <div class="s3-scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- ══ COUNTDOWN ══ -->
+<section class="s3-countdown" id="countdown">
+  <div class="s3-section-title">⟡ Geri Sayım ⟡</div>
+  <h2 class="s3-section-h2">Mutlu Güne Kalan Süre</h2>
+  <div class="s3-countdown-grid">
+    <div class="s3-cbox">
+      <span class="s3-cnum" id="days">00</span>
+      <span class="s3-clabel">Gün</span>
+    </div>
+    <div class="s3-cbox">
+      <span class="s3-cnum" id="hours">00</span>
+      <span class="s3-clabel">Saat</span>
+    </div>
+    <div class="s3-cbox">
+      <span class="s3-cnum" id="minutes">00</span>
+      <span class="s3-clabel">Dakika</span>
+    </div>
+    <div class="s3-cbox">
+      <span class="s3-cnum" id="seconds">00</span>
+      <span class="s3-clabel">Saniye</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══ GALLERY ══ -->
+<section class="s3-gallery" id="gallery">
+  <div style="text-align:center; margin-bottom:40px;">
+    <div class="s3-section-title">⟡ Anılarımız ⟡</div>
+    <h2 class="s3-section-h2">Fotoğraf Galerimiz</h2>
+  </div>
+  <div class="slider-wrap">
+    <div class="slider-track" id="slider-track">
+      <div class="slider-slide">
+        <img src="images/slide1.jpg" alt="Düğün fotoğrafı 1" loading="lazy" />
+      </div>
+      <div class="slider-slide">
+        <img src="images/slide2.jpg" alt="Düğün fotoğrafı 2" loading="lazy" />
+      </div>
+    </div>
+    <button class="slider-btn prev" id="prev-btn" aria-label="Önceki">‹</button>
+    <button class="slider-btn next" id="next-btn" aria-label="Sonraki">›</button>
+    <div class="slider-dots" id="slider-dots">
+      <button class="slider-dot active" data-index="0" aria-label="Fotoğraf 1"></button>
+      <button class="slider-dot" data-index="1" aria-label="Fotoğraf 2"></button>
+    </div>
+  </div>
+</section>
+
+<!-- ══ DETAILS ══ -->
+<section class="s3-details" id="details">
+  <div style="text-align:center; margin-bottom:48px;">
+    <div class="s3-section-title">⟡ Törenlerimiz ⟡</div>
+    <h2 class="s3-section-h2">Tören Bilgileri</h2>
+  </div>
+  <div class="s3-details-inner">
+    <div class="s3-detail-card">
+      <span class="s3-detail-icon">💒</span>
+      <h3>Nikah Töreni</h3>
+      <!-- DÜZENLE -->
+      <p>İstanbul Belediyesi<br />Nikah Salonu</p>
+      <div class="s3-detail-sub">15:00 — 20 Aralık 2025</div>
+    </div>
+
+    <div class="s3-detail-card">
+      <span class="s3-detail-icon">✨</span>
+      <h3>Düğün Töreni</h3>
+      <!-- DÜZENLE -->
+      <p>The Loft Skybar<br />İstanbul, Maslak</p>
+      <div class="s3-detail-sub">20:00 — 20 Aralık 2025</div>
+      <!-- DÜZENLE: Harita linki -->
+      <a href="https://maps.google.com/?q=The+Loft+Skybar+Istanbul+Maslak"
+         target="_blank" rel="noopener"
+         class="map-btn" id="map-btn">
+        📍 Haritada Göster
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MESSAGE ══ -->
+<section class="s3-message" id="message">
+  <div class="s3-message-inner">
+    <span class="s3-message-icon">💜</span>
+    <!-- DÜZENLE: Mesaj -->
+    <p class="s3-message-text">
+      Hayatımızın en anlamlı gecesinde, yıldızlar altında sizi de aramızda görmek istiyoruz.
+      Bu eşsiz deneyimi sizinle paylaşmak, bizi dünyaların en mutlu insanları yapacak.
+    </p>
+    <div class="s3-message-sign">Elif &amp; Kerem</div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer class="s3-footer">
+  <p>💜 Dijital Davetiye Atelyesi &nbsp;|&nbsp; sinankeeeee</p>
+</footer>
+
+<!-- ══ MÜZİK ══ -->
+<button class="music-btn" id="music-btn" aria-label="Müziği Çal/Durdur">🎵</button>
+<audio id="bg-music" loop>
+  <!-- DÜZENLE: Müzik linki -->
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" type="audio/mpeg" />
+</audio>
+
+<!-- ══ SCRİPTS ══ -->
+<script src="../assets/js/security.js"></script>
+<script>
+(function () {
+  /* ── NEON CANVAS PARTICLES ── */
+  const canvas = document.getElementById('neon-canvas');
+  const ctx    = canvas.getContext('2d');
+  let W, H, particles = [];
+
+  function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+  resize();
+  window.addEventListener('resize', resize);
+
+  const colors = ['#8b5cf6', '#06b6d4', '#ec4899', '#a78bfa', '#67e8f9'];
+
+  function mkParticle() {
+    return {
+      x: Math.random() * W,
+      y: Math.random() * H,
+      r: Math.random() * 1.5 + 0.3,
+      speed: Math.random() * 0.3 + 0.1,
+      opacity: Math.random() * 0.4 + 0.1,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      drift: (Math.random() - 0.5) * 0.4,
+      flicker: Math.random() * 0.015 + 0.005,
+      flickerDir: 1,
+    };
+  }
+
+  for (let i = 0; i < 100; i++) particles.push(mkParticle());
+
+  function animate() {
+    ctx.clearRect(0, 0, W, H);
+    particles.forEach(function (p) {
+      p.y -= p.speed; p.x += p.drift;
+      p.opacity += p.flicker * p.flickerDir;
+      if (p.opacity >= 0.5 || p.opacity <= 0.05) p.flickerDir *= -1;
+      if (p.y < -10) { Object.assign(p, mkParticle()); p.y = H + 10; }
+      if (p.x < -10 || p.x > W + 10) p.x = Math.random() * W;
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = p.color;
+      ctx.globalAlpha = p.opacity;
+      ctx.fill();
+
+      // Neon glow
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r * 3, 0, Math.PI * 2);
+      const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 3);
+      grad.addColorStop(0, p.color + '40');
+      grad.addColorStop(1, 'transparent');
+      ctx.fillStyle = grad;
+      ctx.globalAlpha = p.opacity * 0.3;
+      ctx.fill();
+    });
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(animate);
+  }
+  animate();
+
+  /* ── COUNTDOWN ── */
+  // DÜZENLE: Düğün tarihi
+  const WEDDING_DATE = new Date('2025-12-20T20:00:00');
+
+  function updateCountdown() {
+    const diff = WEDDING_DATE - new Date();
+    if (diff <= 0) { ['days','hours','minutes','seconds'].forEach(function(id){document.getElementById(id).textContent='00';}); return; }
+    document.getElementById('days').textContent    = String(Math.floor(diff/86400000)).padStart(2,'0');
+    document.getElementById('hours').textContent   = String(Math.floor((diff%86400000)/3600000)).padStart(2,'0');
+    document.getElementById('minutes').textContent = String(Math.floor((diff%3600000)/60000)).padStart(2,'0');
+    document.getElementById('seconds').textContent = String(Math.floor((diff%60000)/1000)).padStart(2,'0');
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  /* ── SLIDER ── */
+  const track  = document.getElementById('slider-track');
+  const dots   = document.querySelectorAll('.slider-dot');
+  const slides = document.querySelectorAll('.slider-slide');
+  let current  = 0, autoPlay;
+
+  function goTo(i) {
+    current = (i + slides.length) % slides.length;
+    track.style.transform = 'translateX(-' + (current * 100) + '%)';
+    dots.forEach(function(d, j){ d.classList.toggle('active', j === current); });
+  }
+  document.getElementById('next-btn').addEventListener('click', function(){ goTo(current+1); resetAuto(); });
+  document.getElementById('prev-btn').addEventListener('click', function(){ goTo(current-1); resetAuto(); });
+  dots.forEach(function(d){ d.addEventListener('click', function(){ goTo(parseInt(d.dataset.index)); resetAuto(); }); });
+  function resetAuto(){ clearInterval(autoPlay); autoPlay = setInterval(function(){ goTo(current+1); }, 4000); }
+  resetAuto();
+
+  /* ── MÜZİK ── */
+  const musicBtn = document.getElementById('music-btn');
+  const audio    = document.getElementById('bg-music');
+  let playing = false;
+  musicBtn.addEventListener('click', function(){
+    if (playing){ audio.pause(); musicBtn.textContent='🎵'; musicBtn.classList.remove('playing'); }
+    else { audio.play().catch(function(){}); musicBtn.textContent='⏸'; musicBtn.classList.add('playing'); }
+    playing = !playing;
+  });
+
+  /* ── SCROLL REVEAL ── */
+  const style = document.createElement('style');
+  style.textContent='.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s cubic-bezier(.23,1,.32,1)}.revealed{opacity:1;transform:none}';
+  document.head.appendChild(style);
+  document.querySelectorAll('.s3-cbox, .s3-detail-card, .s3-message-inner').forEach(function(el){ el.classList.add('reveal'); });
+  const obs = new IntersectionObserver(function(entries){ entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('revealed'); obs.unobserve(e.target); } }); }, {threshold:0.15});
+  document.querySelectorAll('.reveal').forEach(function(el){ obs.observe(el); });
+
+  /* ── SMOOTH SCROLL ── */
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      const t = document.querySelector(a.getAttribute('href'));
+      if(t){ e.preventDefault(); t.scrollIntoView({behavior:'smooth'}); }
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

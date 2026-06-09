@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ayşe & Mehmet — Düğün Davetiyesi</title>
+  <meta name="description" content="Ayşe ve Mehmet'in düğün davetiyesi. Lütfen aramıza katılın." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Outfit:wght@300;400;500&display=swap" />
+  <style>
+    /* ══════════════════════════════════════
+       ŞABLON 1: MİNİMALİST GOLD
+       ══════════════════════════════════════ */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --gold: #c9a84c;
+      --gold-light: #f0d080;
+      --gold-pale: #e8d5a0;
+      --navy: #0a0e1a;
+      --navy-2: #0f1528;
+      --navy-3: #141c35;
+      --text: #f5f0e8;
+      --text-muted: #a09880;
+      --glass: rgba(201,168,76,0.06);
+      --glass-border: rgba(201,168,76,0.2);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Cormorant Garamond', serif;
+      background-color: var(--navy);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── CANVAS ── */
+    #gold-canvas {
+      position: fixed; inset: 0; z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ── SECTIONS BASE ── */
+    section { position: relative; z-index: 1; }
+
+    /* ── HERO ── */
+    .s1-hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 60px 24px;
+      position: relative; overflow: hidden;
+    }
+
+    .s1-hero-bg {
+      position: absolute; inset: 0; z-index: -1;
+      background: radial-gradient(ellipse at 60% 40%, rgba(201,168,76,0.08) 0%, transparent 60%),
+                  radial-gradient(ellipse at 20% 80%, rgba(201,168,76,0.05) 0%, transparent 50%),
+                  var(--navy);
+    }
+
+    /* Ornamental lines */
+    .s1-hero::before, .s1-hero::after {
+      content: '';
+      position: absolute; left: 50%; transform: translateX(-50%);
+      width: 1px; background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+    }
+    .s1-hero::before { top: 0; height: 80px; }
+    .s1-hero::after  { bottom: 0; height: 80px; }
+
+    .s1-top-ornament {
+      font-size: 1.2rem; letter-spacing: 4px;
+      color: var(--gold); margin-bottom: 28px; opacity: 0.7;
+      animation: fadeInDown 1s ease 0.2s both;
+    }
+
+    .s1-subtitle {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.72rem; letter-spacing: 5px;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 24px; opacity: 0.9;
+      animation: fadeInDown 1s ease 0.4s both;
+    }
+
+    .s1-names {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.5rem, 10vw, 7rem);
+      font-weight: 700; line-height: 1.1;
+      background: linear-gradient(135deg, var(--gold-pale), var(--gold-light), var(--gold), var(--gold-light), var(--gold-pale));
+      background-size: 300% 300%;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      animation: shimmer 4s ease infinite, fadeIn 1s ease 0.6s both;
+    }
+
+    @keyframes shimmer { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+    @keyframes fadeInDown { from{opacity:0;transform:translateY(-20px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes fadeInUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+
+    .s1-ampersand {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-style: italic; color: var(--gold-pale);
+      opacity: 0.6; display: block; margin: -10px 0;
+      animation: fadeIn 1s ease 0.8s both;
+    }
+
+    .s1-divider {
+      display: flex; align-items: center; gap: 16px;
+      margin: 28px auto; max-width: 320px;
+      animation: fadeInUp 1s ease 1s both;
+    }
+
+    .s1-divider-line {
+      flex: 1; height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+    }
+
+    .s1-divider-icon { color: var(--gold); font-size: 1rem; }
+
+    .s1-date {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.85rem; letter-spacing: 4px;
+      text-transform: uppercase; color: var(--gold-pale);
+      margin-bottom: 8px;
+      animation: fadeInUp 1s ease 1.1s both;
+    }
+
+    .s1-date-full {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem; font-weight: 400;
+      color: var(--text); margin-bottom: 40px;
+      animation: fadeInUp 1s ease 1.2s both;
+    }
+
+    .s1-scroll {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 8px; color: var(--text-muted); font-size: 0.75rem;
+      letter-spacing: 2px; text-transform: uppercase;
+      animation: fadeInUp 1s ease 1.4s both;
+    }
+
+    .s1-scroll-line {
+      width: 1px; height: 40px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      animation: s1scroll 2s ease infinite;
+    }
+    @keyframes s1scroll { 0%{transform:scaleY(0);transform-origin:top} 50%{transform:scaleY(1);transform-origin:top} 100%{transform:scaleY(0);transform-origin:bottom} }
+
+    /* ── MUSIC BUTTON ── */
+    .music-btn {
+      position: fixed; bottom: 30px; right: 30px; z-index: 100;
+      width: 56px; height: 56px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      border: none; border-radius: 50%; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; box-shadow: 0 4px 20px rgba(201,168,76,0.4);
+      transition: all 0.3s; animation: fadeIn 1s ease 2s both;
+    }
+
+    .music-btn:hover { transform: scale(1.1); box-shadow: 0 8px 30px rgba(201,168,76,0.6); }
+    .music-btn.playing { animation: musicPulse 1.5s ease infinite; }
+    @keyframes musicPulse { 0%,100%{box-shadow:0 4px 20px rgba(201,168,76,0.4)} 50%{box-shadow:0 8px 40px rgba(201,168,76,0.8)} }
+
+    /* ── COUNTDOWN ── */
+    .s1-countdown {
+      padding: 80px 24px; text-align: center;
+      background: linear-gradient(135deg, var(--navy-2), var(--navy));
+    }
+
+    .s1-countdown h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem; font-weight: 400; font-style: italic;
+      color: var(--gold); letter-spacing: 3px;
+      margin-bottom: 48px;
+    }
+
+    .countdown-grid {
+      display: flex; gap: 20px;
+      justify-content: center; flex-wrap: wrap;
+    }
+
+    .countdown-box {
+      min-width: 100px;
+      padding: 24px 20px;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px; text-align: center;
+      position: relative; overflow: hidden;
+    }
+
+    .countdown-box::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+    }
+
+    .countdown-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem; font-weight: 700;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; display: block; line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .countdown-label {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.7rem; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--text-muted);
+    }
+
+    /* ── GALLERY (SLIDER) ── */
+    .s1-gallery { padding: 80px 24px; }
+
+    .s1-gallery h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem; font-weight: 400; font-style: italic;
+      color: var(--gold); letter-spacing: 3px;
+      text-align: center; margin-bottom: 40px;
+    }
+
+    .slider-wrap {
+      position: relative; max-width: 800px; margin: 0 auto;
+      border-radius: 16px; overflow: hidden;
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(201,168,76,0.1);
+    }
+
+    .slider-track {
+      display: flex; transition: transform 0.6s cubic-bezier(0.23,1,0.32,1);
+    }
+
+    .slider-slide {
+      min-width: 100%; aspect-ratio: 16/10;
+    }
+
+    .slider-slide img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+    }
+
+    .slider-btn {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 44px; height: 44px; border: none; border-radius: 50%;
+      background: rgba(10,14,26,0.7); color: var(--gold);
+      font-size: 1.1rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border);
+      transition: all 0.3s;
+    }
+
+    .slider-btn:hover { background: var(--gold); color: var(--navy); }
+    .slider-btn.prev { left: 16px; }
+    .slider-btn.next { right: 16px; }
+
+    .slider-dots {
+      position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
+      display: flex; gap: 8px;
+    }
+
+    .slider-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: rgba(255,255,255,0.3); border: none; cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .slider-dot.active { background: var(--gold); transform: scale(1.3); }
+
+    /* ── DETAILS ── */
+    .s1-details {
+      padding: 80px 24px;
+      background: linear-gradient(135deg, var(--navy-3), var(--navy-2));
+    }
+
+    .s1-details-inner {
+      max-width: 800px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    .detail-card {
+      padding: 32px; text-align: center;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px; position: relative; overflow: hidden;
+    }
+
+    .detail-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+    }
+
+    .detail-icon { font-size: 2rem; margin-bottom: 16px; display: block; }
+
+    .detail-card h3 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.7rem; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .detail-card p {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; line-height: 1.6; color: var(--text);
+    }
+
+    .detail-card .detail-sub {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.85rem; color: var(--text-muted);
+      margin-top: 8px;
+    }
+
+    .map-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-top: 16px; padding: 10px 22px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      color: var(--navy); font-family: 'Outfit', sans-serif;
+      font-size: 0.82rem; font-weight: 700;
+      letter-spacing: 1px; text-transform: uppercase;
+      border-radius: 50px; text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .map-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(201,168,76,0.4); }
+
+    /* ── MESSAGE ── */
+    .s1-message {
+      padding: 80px 24px; text-align: center;
+    }
+
+    .s1-message-inner {
+      max-width: 600px; margin: 0 auto;
+      padding: 48px; background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px; position: relative;
+    }
+
+    .s1-message-inner::before,
+    .s1-message-inner::after {
+      font-family: 'Playfair Display', serif;
+      font-size: 5rem; line-height: 1;
+      color: var(--gold); opacity: 0.2;
+      position: absolute;
+    }
+    .s1-message-inner::before { content: '"'; top: -10px; left: 16px; }
+    .s1-message-inner::after  { content: '"'; bottom: -40px; right: 16px; }
+
+    .s1-message-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem; line-height: 1.9;
+      color: var(--text); font-style: italic;
+      position: relative; z-index: 1;
+    }
+
+    .s1-message-sign {
+      margin-top: 24px;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem; color: var(--gold);
+    }
+
+    /* ── FOOTER ── */
+    .s1-footer {
+      padding: 40px 24px;
+      text-align: center;
+      border-top: 1px solid rgba(201,168,76,0.12);
+    }
+
+    .s1-footer p {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.8rem; color: var(--text-muted);
+      letter-spacing: 1px;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .s1-details-inner { grid-template-columns: 1fr; }
+      .countdown-grid { gap: 12px; }
+      .countdown-box { min-width: 70px; padding: 16px 12px; }
+      .countdown-num { font-size: 2rem; }
+      .s1-message-inner { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body id="main-content">
+
+<!-- Gold particles canvas -->
+<canvas id="gold-canvas" aria-hidden="true"></canvas>
+
+<!-- ══ HERO ══ -->
+<section class="s1-hero" id="hero">
+  <div class="s1-hero-bg" aria-hidden="true"></div>
+
+  <div class="s1-top-ornament" aria-hidden="true">✦ ◆ ✦</div>
+  <div class="s1-subtitle">Sizi Düğünümüze Davet Ediyoruz</div>
+
+  <div class="s1-names">
+    <!-- DÜZENLE: İsim 1 -->
+    Ayşe
+    <span class="s1-ampersand">&amp;</span>
+    <!-- DÜZENLE: İsim 2 -->
+    Mehmet
+  </div>
+
+  <div class="s1-divider" aria-hidden="true">
+    <div class="s1-divider-line"></div>
+    <span class="s1-divider-icon">💍</span>
+    <div class="s1-divider-line"></div>
+  </div>
+
+  <!-- DÜZENLE: Tarih -->
+  <div class="s1-date">Düğün Tarihi</div>
+  <div class="s1-date-full" id="wedding-date-display">15 Ağustos 2025</div>
+
+  <div class="s1-scroll" aria-label="Aşağı kaydırın">
+    <div class="s1-scroll-line"></div>
+    <span>Aşağı Kaydır</span>
+  </div>
+</section>
+
+<!-- ══ COUNTDOWN ══ -->
+<section class="s1-countdown" id="countdown">
+  <h2>— Mutlu Güne Kalan —</h2>
+  <div class="countdown-grid">
+    <div class="countdown-box">
+      <span class="countdown-num" id="days">00</span>
+      <span class="countdown-label">Gün</span>
+    </div>
+    <div class="countdown-box">
+      <span class="countdown-num" id="hours">00</span>
+      <span class="countdown-label">Saat</span>
+    </div>
+    <div class="countdown-box">
+      <span class="countdown-num" id="minutes">00</span>
+      <span class="countdown-label">Dakika</span>
+    </div>
+    <div class="countdown-box">
+      <span class="countdown-num" id="seconds">00</span>
+      <span class="countdown-label">Saniye</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══ GALLERY ══ -->
+<section class="s1-gallery" id="gallery">
+  <h2>— Anılarımız —</h2>
+  <div class="slider-wrap">
+    <div class="slider-track" id="slider-track">
+      <div class="slider-slide">
+        <img src="images/slide1.jpg" alt="Düğün fotoğrafı 1" loading="lazy" />
+      </div>
+      <div class="slider-slide">
+        <img src="images/slide2.jpg" alt="Düğün fotoğrafı 2" loading="lazy" />
+      </div>
+    </div>
+    <button class="slider-btn prev" id="prev-btn" aria-label="Önceki fotoğraf">‹</button>
+    <button class="slider-btn next" id="next-btn" aria-label="Sonraki fotoğraf">›</button>
+    <div class="slider-dots" id="slider-dots">
+      <button class="slider-dot active" data-index="0" aria-label="Fotoğraf 1"></button>
+      <button class="slider-dot" data-index="1" aria-label="Fotoğraf 2"></button>
+    </div>
+  </div>
+</section>
+
+<!-- ══ DETAILS ══ -->
+<section class="s1-details" id="details">
+  <div class="s1-details-inner">
+
+    <div class="detail-card">
+      <span class="detail-icon">💒</span>
+      <h3>Nikah Töreni</h3>
+      <!-- DÜZENLE: Nikah bilgileri -->
+      <p>İstanbul Belediyesi<br />Nikah Salonu</p>
+      <div class="detail-sub">14:00 — 15 Ağustos 2025</div>
+    </div>
+
+    <div class="detail-card">
+      <span class="detail-icon">🌹</span>
+      <h3>Düğün Töreni</h3>
+      <!-- DÜZENLE: Düğün bilgileri -->
+      <p>Grand Hotel Ballroom<br />İstanbul, Şişli</p>
+      <div class="detail-sub">19:00 — 15 Ağustos 2025</div>
+      <!-- DÜZENLE: Harita linki -->
+      <a href="https://maps.google.com/?q=Grand+Hotel+Istanbul+Sisli"
+         target="_blank" rel="noopener"
+         class="map-btn"
+         id="map-btn">
+        📍 Haritada Göster
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ MESSAGE ══ -->
+<section class="s1-message" id="message">
+  <div class="s1-message-inner">
+    <!-- DÜZENLE: Davetiye mesajı -->
+    <p class="s1-message-text">
+      Hayatımızın en özel gününde sizi de aramızda görmek,
+      bu mutluluğu sizinle paylaşmak bizleri onurlandıracaktır.
+      Varlığınızla bu geceyi daha da güzel kılmanızı dileriz.
+    </p>
+    <div class="s1-message-sign">
+      — Ayşe &amp; Mehmet —
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer class="s1-footer">
+  <p>💌 Dijital Davetiye Atelyesi &nbsp;|&nbsp; sinankeeeee</p>
+</footer>
+
+<!-- ══ MÜZİK BUTONU ══ -->
+<button class="music-btn" id="music-btn" aria-label="Müziği Çal/Durdur">🎵</button>
+<!-- DÜZENLE: Müzik linki -->
+<audio id="bg-music" loop>
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg" />
+</audio>
+
+<!-- ══ SCRİPTS ══ -->
+<script src="../assets/js/security.js"></script>
+<script>
+(function () {
+  /* ── COUNTDOWN ── */
+  // DÜZENLE: Düğün tarihini buraya girin
+  const WEDDING_DATE = new Date('2025-08-15T19:00:00');
+
+  function updateCountdown() {
+    const now = new Date();
+    const diff = WEDDING_DATE - now;
+
+    if (diff <= 0) {
+      document.getElementById('days').textContent    = '00';
+      document.getElementById('hours').textContent   = '00';
+      document.getElementById('minutes').textContent = '00';
+      document.getElementById('seconds').textContent = '00';
+      return;
+    }
+
+    const days    = Math.floor(diff / 86400000);
+    const hours   = Math.floor((diff % 86400000) / 3600000);
+    const minutes = Math.floor((diff % 3600000) / 60000);
+    const seconds = Math.floor((diff % 60000) / 1000);
+
+    document.getElementById('days').textContent    = String(days).padStart(2, '0');
+    document.getElementById('hours').textContent   = String(hours).padStart(2, '0');
+    document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+    document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  /* ── SLIDER ── */
+  const track  = document.getElementById('slider-track');
+  const dots   = document.querySelectorAll('.slider-dot');
+  const slides = document.querySelectorAll('.slider-slide');
+  let current  = 0;
+  let autoPlay;
+
+  function goTo(index) {
+    current = (index + slides.length) % slides.length;
+    track.style.transform = 'translateX(-' + (current * 100) + '%)';
+    dots.forEach(function (d, i) { d.classList.toggle('active', i === current); });
+  }
+
+  document.getElementById('next-btn').addEventListener('click', function () { goTo(current + 1); resetAuto(); });
+  document.getElementById('prev-btn').addEventListener('click', function () { goTo(current - 1); resetAuto(); });
+  dots.forEach(function (d) {
+    d.addEventListener('click', function () { goTo(parseInt(d.dataset.index)); resetAuto(); });
+  });
+
+  function resetAuto() { clearInterval(autoPlay); autoPlay = setInterval(function () { goTo(current + 1); }, 4000); }
+  resetAuto();
+
+  /* ── MÜZİK ── */
+  const musicBtn = document.getElementById('music-btn');
+  const audio    = document.getElementById('bg-music');
+  let playing    = false;
+
+  musicBtn.addEventListener('click', function () {
+    if (playing) { audio.pause(); musicBtn.textContent = '🎵'; musicBtn.classList.remove('playing'); }
+    else { audio.play().catch(function(){}); musicBtn.textContent = '⏸'; musicBtn.classList.add('playing'); }
+    playing = !playing;
+  });
+
+  /* ── GOLD PARTICLES ── */
+  const canvas = document.getElementById('gold-canvas');
+  const ctx    = canvas.getContext('2d');
+  let W, H, particles = [];
+
+  function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function mkParticle() {
+    return {
+      x: Math.random() * W,
+      y: H + 10,
+      r: Math.random() * 2 + 0.5,
+      speed: Math.random() * 0.5 + 0.2,
+      opacity: Math.random() * 0.5 + 0.1,
+      drift: (Math.random() - 0.5) * 0.5,
+    };
+  }
+
+  for (let i = 0; i < 80; i++) { const p = mkParticle(); p.y = Math.random() * H; particles.push(p); }
+
+  function animateParticles() {
+    ctx.clearRect(0, 0, W, H);
+    particles.forEach(function (p) {
+      p.y -= p.speed; p.x += p.drift;
+      if (p.y < -10) { Object.assign(p, mkParticle()); }
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = '#c9a84c';
+      ctx.globalAlpha = p.opacity;
+      ctx.fill();
+    });
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(animateParticles);
+  }
+  animateParticles();
+
+  /* ── SCROLL REVEAL ── */
+  const style = document.createElement('style');
+  style.textContent = '.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s cubic-bezier(.23,1,.32,1)}.revealed{opacity:1;transform:none}';
+  document.head.appendChild(style);
+
+  document.querySelectorAll('.countdown-box, .detail-card, .s1-message-inner').forEach(function (el) {
+    el.classList.add('reveal');
+  });
+
+  const observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('revealed'); observer.unobserve(e.target); }});
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.reveal').forEach(function (el) { observer.observe(el); });
+})();
+</script>
+
+</body>
+</html>

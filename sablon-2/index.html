@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fatma & Ali — Düğün Davetiyesi</title>
+  <meta name="description" content="Fatma ve Ali'nin düğün davetiyesi. Lütfen aramıza katılın." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" />
+  <style>
+    /* ══════════════════════════════════════
+       ŞABLON 2: ÇİÇEKLİ ROMANTİK
+       ══════════════════════════════════════ */
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+    :root {
+      --rose:      #e8a0b4;
+      --rose-dark: #c4617a;
+      --rose-pale: #fce8ef;
+      --cream:     #fdf8f2;
+      --green:     #7a9e7e;
+      --green-pale:#c8ddc9;
+      --brown:     #8b6551;
+      --text:      #4a3040;
+      --text-muted:#9e8090;
+      --bg:        #fdf5f7;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── FLOATING PETALS ── */
+    .petals-container {
+      position: fixed; inset: 0; z-index: 0;
+      pointer-events: none; overflow: hidden;
+    }
+
+    .petal {
+      position: absolute; top: -20px;
+      font-size: 1.2rem; opacity: 0;
+      animation: petalFall linear infinite;
+    }
+
+    @keyframes petalFall {
+      0%   { opacity: 0; transform: translateY(0) rotate(0deg) scale(0.5); }
+      10%  { opacity: 0.8; }
+      90%  { opacity: 0.5; }
+      100% { opacity: 0; transform: translateY(110vh) rotate(360deg) scale(1); }
+    }
+
+    /* ── SECTION BASE ── */
+    section { position: relative; z-index: 1; }
+
+    /* ── HERO ── */
+    .s2-hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 60px 24px;
+      background:
+        radial-gradient(ellipse at 20% 20%, rgba(244,160,192,0.25) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(200,221,201,0.2) 0%, transparent 50%),
+        var(--cream);
+      position: relative; overflow: hidden;
+    }
+
+    /* Decorative corner flowers */
+    .s2-corner {
+      position: absolute; font-size: 3rem; opacity: 0.3;
+      animation: floatCorner 6s ease-in-out infinite;
+    }
+    .s2-corner.tl { top: 20px; left: 20px; }
+    .s2-corner.tr { top: 20px; right: 20px; transform: scaleX(-1); }
+    .s2-corner.bl { bottom: 20px; left: 20px; }
+    .s2-corner.br { bottom: 20px; right: 20px; transform: scaleX(-1); }
+
+    @keyframes floatCorner { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+    .s2-corner.tr { animation-delay: 1s; }
+    .s2-corner.bl { animation-delay: 2s; }
+    .s2-corner.br { animation-delay: 3s; }
+
+    .s2-label {
+      font-size: 0.75rem; letter-spacing: 4px;
+      text-transform: uppercase; color: var(--rose-dark);
+      margin-bottom: 24px; opacity: 0.8;
+      animation: fadeInDown 0.8s ease 0.3s both;
+    }
+
+    @keyframes fadeInDown { from{opacity:0;transform:translateY(-20px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes fadeInUp   { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes fadeIn     { from{opacity:0} to{opacity:1} }
+
+    .s2-names {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(4rem, 12vw, 8rem);
+      color: var(--rose-dark);
+      line-height: 1.1; margin-bottom: 8px;
+      text-shadow: 0 4px 20px rgba(196,97,122,0.15);
+      animation: fadeIn 1s ease 0.5s both;
+    }
+
+    .s2-ampersand {
+      display: block;
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      color: var(--green); margin: -10px 0;
+    }
+
+    .s2-divider {
+      display: flex; align-items: center; gap: 12px;
+      margin: 24px auto; max-width: 280px;
+      animation: fadeIn 1s ease 0.8s both;
+    }
+    .s2-divider-line { flex:1; height:1px; background: linear-gradient(to right, transparent, var(--rose), transparent); }
+    .s2-divider-icon { color: var(--rose-dark); font-size: 1.2rem; }
+
+    .s2-date-wrap { animation: fadeInUp 0.8s ease 0.9s both; }
+    .s2-date-label {
+      font-size: 0.72rem; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .s2-date {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem; font-style: italic;
+      color: var(--text); margin-bottom: 4px;
+    }
+    .s2-date-location {
+      font-size: 0.9rem; color: var(--text-muted);
+      margin-bottom: 36px;
+    }
+
+    .s2-scroll {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 8px; color: var(--text-muted); font-size: 0.72rem;
+      letter-spacing: 2px; text-transform: uppercase;
+      animation: fadeInUp 0.8s ease 1.2s both;
+    }
+    .s2-scroll-line { width:1px; height:40px; background: linear-gradient(to bottom, var(--rose), transparent); animation: s2scroll 2s ease infinite; }
+    @keyframes s2scroll { 0%{transform:scaleY(0);transform-origin:top} 50%{transform:scaleY(1);transform-origin:top} 100%{transform:scaleY(0);transform-origin:bottom} }
+
+    /* ── MUSIC BUTTON ── */
+    .music-btn {
+      position: fixed; bottom: 30px; right: 30px; z-index: 100;
+      width: 56px; height: 56px;
+      background: linear-gradient(135deg, var(--rose-dark), var(--rose));
+      border: none; border-radius: 50%; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; box-shadow: 0 4px 20px rgba(196,97,122,0.4);
+      transition: all 0.3s;
+    }
+    .music-btn:hover { transform: scale(1.1); box-shadow: 0 8px 30px rgba(196,97,122,0.6); }
+    .music-btn.playing { animation: musicPulse 1.5s ease infinite; }
+    @keyframes musicPulse { 0%,100%{box-shadow:0 4px 20px rgba(196,97,122,0.4)} 50%{box-shadow:0 8px 40px rgba(196,97,122,0.8)} }
+
+    /* ── COUNTDOWN ── */
+    .s2-countdown {
+      padding: 80px 24px; text-align: center;
+      background: linear-gradient(135deg, rgba(244,160,192,0.12), rgba(200,221,201,0.1));
+    }
+
+    .section-tag {
+      display: inline-block;
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.5rem; color: var(--rose-dark);
+      margin-bottom: 40px;
+    }
+
+    .s2-countdown-grid { display:flex; gap:20px; justify-content:center; flex-wrap:wrap; }
+
+    .s2-cbox {
+      min-width: 90px; padding: 20px 16px;
+      background: white;
+      border: 2px solid rgba(232,160,180,0.4);
+      border-radius: 16px; text-align: center;
+      box-shadow: 0 4px 20px rgba(196,97,122,0.08);
+      position: relative;
+    }
+    .s2-cbox::after {
+      content: ''; position: absolute;
+      top: 6px; left: 6px; right: 6px; bottom: 6px;
+      border: 1px solid rgba(232,160,180,0.25);
+      border-radius: 12px; pointer-events: none;
+    }
+
+    .s2-cnum {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem; font-weight: 400; color: var(--rose-dark);
+      display: block; line-height: 1; margin-bottom: 6px;
+    }
+    .s2-clabel { font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); }
+
+    /* ── GALLERY ── */
+    .s2-gallery { padding: 80px 24px; background: white; }
+
+    .s2-section-head { text-align:center; margin-bottom:40px; }
+    .s2-section-head .section-tag { display:block; }
+    .s2-section-head p { font-size:0.9rem; color:var(--text-muted); letter-spacing:0.5px; }
+
+    .slider-wrap {
+      position:relative; max-width:800px; margin:0 auto;
+      border-radius:20px; overflow:hidden;
+      border: 2px solid rgba(232,160,180,0.3);
+      box-shadow: 0 20px 60px rgba(196,97,122,0.1);
+    }
+    .slider-track { display:flex; transition:transform 0.6s cubic-bezier(.23,1,.32,1); }
+    .slider-slide { min-width:100%; aspect-ratio:16/10; }
+    .slider-slide img { width:100%; height:100%; object-fit:cover; display:block; }
+    .slider-btn {
+      position:absolute; top:50%; transform:translateY(-50%);
+      width:44px; height:44px; border:none; border-radius:50%;
+      background:rgba(255,255,255,0.85); color:var(--rose-dark);
+      font-size:1.2rem; cursor:pointer;
+      border:2px solid rgba(232,160,180,0.4);
+      transition:all 0.3s;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .slider-btn:hover { background:var(--rose-dark); color:white; }
+    .slider-btn.prev { left:16px; }
+    .slider-btn.next { right:16px; }
+    .slider-dots { position:absolute; bottom:16px; left:50%; transform:translateX(-50%); display:flex; gap:8px; }
+    .slider-dot { width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,0.6); border:none; cursor:pointer; transition:all 0.3s; }
+    .slider-dot.active { background:var(--rose-dark); transform:scale(1.3); }
+
+    /* ── DETAILS ── */
+    .s2-details {
+      padding: 80px 24px;
+      background: linear-gradient(135deg, rgba(244,160,192,0.08), rgba(200,221,201,0.08));
+    }
+
+    .s2-details-inner {
+      max-width: 800px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+    }
+
+    .s2-detail-card {
+      padding: 36px 28px; text-align: center;
+      background: white;
+      border: 1px solid rgba(232,160,180,0.3);
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(196,97,122,0.06);
+      position: relative; overflow: hidden;
+    }
+    .s2-detail-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(to right, var(--rose), var(--rose-dark), var(--rose));
+    }
+
+    .s2-detail-icon { font-size: 2.2rem; margin-bottom: 16px; }
+    .s2-detail-card h3 {
+      font-size: 0.7rem; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--rose-dark);
+      margin-bottom: 12px;
+    }
+    .s2-detail-card p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem; line-height: 1.6; color: var(--text);
+    }
+    .s2-detail-sub { font-size: 0.85rem; color: var(--text-muted); margin-top: 8px; }
+
+    .map-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-top: 16px; padding: 10px 22px;
+      background: linear-gradient(135deg, var(--rose-dark), var(--rose));
+      color: white; font-size: 0.82rem; font-weight: 700;
+      letter-spacing: 1px; text-transform: uppercase;
+      border-radius: 50px; text-decoration: none;
+      transition: all 0.3s;
+    }
+    .map-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(196,97,122,0.4); }
+
+    /* ── MESSAGE ── */
+    .s2-message {
+      padding: 80px 24px; background: white; text-align: center;
+    }
+    .s2-message-inner {
+      max-width: 600px; margin: 0 auto;
+      padding: 48px; background: linear-gradient(135deg, rgba(244,160,192,0.08), rgba(200,221,201,0.05));
+      border: 1px solid rgba(232,160,180,0.25);
+      border-radius: 24px; position: relative;
+    }
+    .s2-message-flower {
+      font-size: 2.5rem; margin-bottom: 24px; display: block;
+      animation: floatFlower 4s ease-in-out infinite;
+    }
+    @keyframes floatFlower { 0%,100%{transform:translateY(0) rotate(-5deg)} 50%{transform:translateY(-8px) rotate(5deg)} }
+
+    .s2-message-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem; line-height: 2; color: var(--text);
+      font-style: italic; margin-bottom: 24px;
+    }
+    .s2-message-sign {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.5rem; color: var(--rose-dark);
+    }
+
+    /* ── FOOTER ── */
+    .s2-footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--cream);
+      border-top: 2px solid rgba(232,160,180,0.2);
+    }
+    .s2-footer p { font-size: 0.8rem; color: var(--text-muted); letter-spacing: 1px; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .s2-details-inner { grid-template-columns: 1fr; }
+      .s2-countdown-grid { gap: 12px; }
+      .s2-cbox { min-width: 70px; padding: 14px 10px; }
+      .s2-cnum { font-size: 2rem; }
+      .s2-message-inner { padding: 32px 20px; }
+    }
+  </style>
+</head>
+<body id="main-content">
+
+<!-- Floating petals -->
+<div class="petals-container" id="petals-container" aria-hidden="true"></div>
+
+<!-- ══ HERO ══ -->
+<section class="s2-hero" id="hero">
+  <div class="s2-corner tl" aria-hidden="true">🌸</div>
+  <div class="s2-corner tr" aria-hidden="true">🌸</div>
+  <div class="s2-corner bl" aria-hidden="true">🌿</div>
+  <div class="s2-corner br" aria-hidden="true">🌿</div>
+
+  <div class="s2-label">— Düğün Davetiyesi —</div>
+
+  <div class="s2-names">
+    <!-- DÜZENLE: İsim 1 -->
+    Fatma
+    <span class="s2-ampersand">&amp;</span>
+    <!-- DÜZENLE: İsim 2 -->
+    Ali
+  </div>
+
+  <div class="s2-divider" aria-hidden="true">
+    <div class="s2-divider-line"></div>
+    <span class="s2-divider-icon">🌹</span>
+    <div class="s2-divider-line"></div>
+  </div>
+
+  <div class="s2-date-wrap">
+    <div class="s2-date-label">Sizi Özel Günümüze Bekliyoruz</div>
+    <!-- DÜZENLE: Tarih -->
+    <div class="s2-date">15 Eylül 2025</div>
+    <!-- DÜZENLE: Şehir -->
+    <div class="s2-date-location">İstanbul, Türkiye</div>
+  </div>
+
+  <div class="s2-scroll" aria-label="Aşağı kaydırın">
+    <div class="s2-scroll-line"></div>
+    <span>Kaydır</span>
+  </div>
+</section>
+
+<!-- ══ COUNTDOWN ══ -->
+<section class="s2-countdown" id="countdown">
+  <div class="section-tag">Mutlu Güne Kalan</div>
+  <div class="s2-countdown-grid">
+    <div class="s2-cbox">
+      <span class="s2-cnum" id="days">00</span>
+      <span class="s2-clabel">Gün</span>
+    </div>
+    <div class="s2-cbox">
+      <span class="s2-cnum" id="hours">00</span>
+      <span class="s2-clabel">Saat</span>
+    </div>
+    <div class="s2-cbox">
+      <span class="s2-cnum" id="minutes">00</span>
+      <span class="s2-clabel">Dakika</span>
+    </div>
+    <div class="s2-cbox">
+      <span class="s2-cnum" id="seconds">00</span>
+      <span class="s2-clabel">Saniye</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══ GALLERY ══ -->
+<section class="s2-gallery" id="gallery">
+  <div class="s2-section-head">
+    <span class="section-tag">Anılarımız</span>
+    <p>Birlikte yaşadığımız güzel anlara bir bakış…</p>
+  </div>
+  <div class="slider-wrap">
+    <div class="slider-track" id="slider-track">
+      <div class="slider-slide">
+        <img src="images/slide1.jpg" alt="Düğün fotoğrafı 1" loading="lazy" />
+      </div>
+      <div class="slider-slide">
+        <img src="images/slide2.jpg" alt="Düğün fotoğrafı 2" loading="lazy" />
+      </div>
+    </div>
+    <button class="slider-btn prev" id="prev-btn" aria-label="Önceki">‹</button>
+    <button class="slider-btn next" id="next-btn" aria-label="Sonraki">›</button>
+    <div class="slider-dots" id="slider-dots">
+      <button class="slider-dot active" data-index="0" aria-label="Fotoğraf 1"></button>
+      <button class="slider-dot" data-index="1" aria-label="Fotoğraf 2"></button>
+    </div>
+  </div>
+</section>
+
+<!-- ══ DETAILS ══ -->
+<section class="s2-details" id="details">
+  <div class="s2-section-head">
+    <span class="section-tag">Törenlerimiz</span>
+  </div>
+  <div class="s2-details-inner">
+    <div class="s2-detail-card">
+      <div class="s2-detail-icon">💒</div>
+      <h3>Nikah Töreni</h3>
+      <!-- DÜZENLE -->
+      <p>İstanbul Belediyesi<br />Nikah Salonu</p>
+      <div class="s2-detail-sub">14:00 — 15 Eylül 2025</div>
+    </div>
+
+    <div class="s2-detail-card">
+      <div class="s2-detail-icon">🌹</div>
+      <h3>Düğün Töreni</h3>
+      <!-- DÜZENLE -->
+      <p>Bahçeli Köşk<br />İstanbul, Beykoz</p>
+      <div class="s2-detail-sub">19:00 — 15 Eylül 2025</div>
+      <!-- DÜZENLE: Harita linki -->
+      <a href="https://maps.google.com/?q=Bahceli+Kosk+Istanbul+Beykoz"
+         target="_blank" rel="noopener"
+         class="map-btn" id="map-btn">
+        📍 Haritada Göster
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MESSAGE ══ -->
+<section class="s2-message" id="message">
+  <div class="s2-message-inner">
+    <span class="s2-message-flower">🌸</span>
+    <!-- DÜZENLE: Mesaj -->
+    <p class="s2-message-text">
+      Sevdiklerimizle çevrilmiş, çiçekler içinde büyülü bir geceye sizi davet ediyoruz.
+      Kalplerimizi dolduran bu mutluluğu sizinle paylaşmak en büyük dileğimizdir.
+      Varlığınızla bu anı taçlandırmanızı bekliyoruz.
+    </p>
+    <div class="s2-message-sign">Fatma &amp; Ali</div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer class="s2-footer">
+  <p>🌸 Dijital Davetiye Atelyesi &nbsp;|&nbsp; sinankeeeee</p>
+</footer>
+
+<!-- ══ MÜZİK ══ -->
+<button class="music-btn" id="music-btn" aria-label="Müziği Çal/Durdur">🎵</button>
+<audio id="bg-music" loop>
+  <!-- DÜZENLE: Müzik linki -->
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg" />
+</audio>
+
+<!-- ══ SCRİPTS ══ -->
+<script src="../assets/js/security.js"></script>
+<script>
+(function () {
+  /* ── PETALS ── */
+  const container = document.getElementById('petals-container');
+  const petalEmojis = ['🌸', '🌺', '🌼', '🍃', '🌹'];
+  for (let i = 0; i < 18; i++) {
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.textContent = petalEmojis[Math.floor(Math.random() * petalEmojis.length)];
+    p.style.left = Math.random() * 100 + '%';
+    p.style.animationDuration = (Math.random() * 8 + 6) + 's';
+    p.style.animationDelay    = (Math.random() * 10) + 's';
+    p.style.fontSize           = (Math.random() * 0.8 + 0.6) + 'rem';
+    container.appendChild(p);
+  }
+
+  /* ── COUNTDOWN ── */
+  // DÜZENLE: Düğün tarihi
+  const WEDDING_DATE = new Date('2025-09-15T19:00:00');
+
+  function updateCountdown() {
+    const diff = WEDDING_DATE - new Date();
+    if (diff <= 0) { ['days','hours','minutes','seconds'].forEach(function(id){document.getElementById(id).textContent='00';}); return; }
+    document.getElementById('days').textContent    = String(Math.floor(diff/86400000)).padStart(2,'0');
+    document.getElementById('hours').textContent   = String(Math.floor((diff%86400000)/3600000)).padStart(2,'0');
+    document.getElementById('minutes').textContent = String(Math.floor((diff%3600000)/60000)).padStart(2,'0');
+    document.getElementById('seconds').textContent = String(Math.floor((diff%60000)/1000)).padStart(2,'0');
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  /* ── SLIDER ── */
+  const track  = document.getElementById('slider-track');
+  const dots   = document.querySelectorAll('.slider-dot');
+  const slides = document.querySelectorAll('.slider-slide');
+  let current  = 0;
+  let autoPlay;
+
+  function goTo(i) {
+    current = (i + slides.length) % slides.length;
+    track.style.transform = 'translateX(-' + (current * 100) + '%)';
+    dots.forEach(function(d, j){ d.classList.toggle('active', j === current); });
+  }
+
+  document.getElementById('next-btn').addEventListener('click', function(){ goTo(current+1); resetAuto(); });
+  document.getElementById('prev-btn').addEventListener('click', function(){ goTo(current-1); resetAuto(); });
+  dots.forEach(function(d){ d.addEventListener('click', function(){ goTo(parseInt(d.dataset.index)); resetAuto(); }); });
+
+  function resetAuto(){ clearInterval(autoPlay); autoPlay = setInterval(function(){ goTo(current+1); }, 4000); }
+  resetAuto();
+
+  /* ── MÜZİK ── */
+  const musicBtn = document.getElementById('music-btn');
+  const audio    = document.getElementById('bg-music');
+  let playing    = false;
+  musicBtn.addEventListener('click', function(){
+    if (playing){ audio.pause(); musicBtn.textContent='🎵'; musicBtn.classList.remove('playing'); }
+    else { audio.play().catch(function(){}); musicBtn.textContent='⏸'; musicBtn.classList.add('playing'); }
+    playing = !playing;
+  });
+
+  /* ── SCROLL REVEAL ── */
+  const style = document.createElement('style');
+  style.textContent='.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s cubic-bezier(.23,1,.32,1)}.revealed{opacity:1;transform:none}';
+  document.head.appendChild(style);
+  document.querySelectorAll('.s2-cbox, .s2-detail-card, .s2-message-inner').forEach(function(el){ el.classList.add('reveal'); });
+  const obs = new IntersectionObserver(function(entries){ entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('revealed'); obs.unobserve(e.target); } }); }, {threshold:0.15});
+  document.querySelectorAll('.reveal').forEach(function(el){ obs.observe(el); });
+})();
+</script>
+
+</body>
+</html>

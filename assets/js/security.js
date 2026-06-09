@@ -118,11 +118,13 @@
     try { return window.self !== window.top; } catch (e) { return true; }
   })();
 
+  const IS_MOBILE = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
+
   let devToolsOpen = false;
 
   function detectDevTools() {
-    // iframe içindeyken bu kontrolü atla — yanlış tetikleme olur
-    if (IS_IN_IFRAME) return;
+    // iframe içindeyken veya mobildeyken bu kontrolü atla — yanlış tetikleme olur
+    if (IS_IN_IFRAME || IS_MOBILE) return;
 
     const threshold = 160;
     const widthDiff  = window.outerWidth  - window.innerWidth  > threshold;
@@ -176,13 +178,15 @@
       else { blurTimeout = setTimeout(removeBlur, 300); }
     });
 
-    // Fare sayfadan çıkınca
-    document.addEventListener('mouseleave', function (e) {
-      if (e.clientY <= 0 || e.clientX <= 0 ||
-          e.clientX >= window.innerWidth || e.clientY >= window.innerHeight) {
-        applyBlur();
-      }
-    });
+    // Fare sayfadan çıkınca (Mobilde devre dışı)
+    if (!IS_MOBILE) {
+      document.addEventListener('mouseleave', function (e) {
+        if (e.clientY <= 0 || e.clientX <= 0 ||
+            e.clientX >= window.innerWidth || e.clientY >= window.innerHeight) {
+          applyBlur();
+        }
+      });
+    }
 
     document.addEventListener('mouseenter', function () {
       clearTimeout(blurTimeout);

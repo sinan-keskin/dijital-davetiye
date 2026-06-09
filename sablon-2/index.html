@@ -461,11 +461,9 @@
 </footer>
 
 <!-- ══ MÜZİK ══ -->
-<button class="music-btn" id="music-btn" aria-label="Müziği Çal/Durdur">🎵</button>
-<audio id="bg-music" loop>
-  <!-- DÜZENLE: Müzik linki -->
-  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg" />
-</audio>
+<button class="music-btn" id="music-btn" aria-label="Müzii Çal/Durdur">🎵</button>
+<!-- DÜZENLE: YouTube video ID'sini buraya yaz (youtube.com/watch?v=XXXXX kısmındaki XXXXX) -->
+<div id="yt-player-wrap" style="position:fixed;width:1px;height:1px;bottom:0;right:0;opacity:0;pointer-events:none;overflow:hidden;"></div>
 
 <!-- ══ SCRİPTS ══ -->
 <script src="../assets/js/security.js"></script>
@@ -520,14 +518,34 @@
   function resetAuto(){ clearInterval(autoPlay); autoPlay = setInterval(function(){ goTo(current+1); }, 4000); }
   resetAuto();
 
-  /* ── MÜZİK ── */
-  const musicBtn = document.getElementById('music-btn');
-  const audio    = document.getElementById('bg-music');
-  let playing    = false;
-  musicBtn.addEventListener('click', function(){
-    if (playing){ audio.pause(); musicBtn.textContent='🎵'; musicBtn.classList.remove('playing'); }
-    else { audio.play().catch(function(){}); musicBtn.textContent='⏸'; musicBtn.classList.add('playing'); }
-    playing = !playing;
+  /* ── MÜZİK (YouTube) ── */
+  const musicBtn   = document.getElementById('music-btn');
+  const ytWrap     = document.getElementById('yt-player-wrap');
+  // DÜZENLE: YouTube video ID'sini buraya yaz
+  const YT_VIDEO_ID = 'aJOTlE1K90k';
+  let ytPlaying = false;
+  let ytFrame   = null;
+
+  function createYTFrame() {
+    const iframe = document.createElement('iframe');
+    iframe.width = '1'; iframe.height = '1';
+    iframe.allow = 'autoplay';
+    iframe.src = 'https://www.youtube.com/embed/' + YT_VIDEO_ID +
+                 '?autoplay=1&loop=1&playlist=' + YT_VIDEO_ID +
+                 '&controls=0&disablekb=1&fs=0&iv_load_policy=3&modestbranding=1&rel=0';
+    ytWrap.appendChild(iframe);
+    ytFrame = iframe;
+  }
+  function pauseYT() { if (ytFrame) ytFrame.contentWindow.postMessage(JSON.stringify({event:'command',func:'pauseVideo'}),'*'); }
+  function playYT()  { if (ytFrame) ytFrame.contentWindow.postMessage(JSON.stringify({event:'command',func:'playVideo'}),'*'); }
+
+  musicBtn.addEventListener('click', function () {
+    if (!ytPlaying) {
+      if (!ytFrame) { createYTFrame(); } else { playYT(); }
+      musicBtn.textContent = '⏸'; musicBtn.classList.add('playing'); ytPlaying = true;
+    } else {
+      pauseYT(); musicBtn.textContent = '🎵'; musicBtn.classList.remove('playing'); ytPlaying = false;
+    }
   });
 
   /* ── SCROLL REVEAL ── */

@@ -522,7 +522,7 @@
   const musicBtn   = document.getElementById('music-btn');
   const ytWrap     = document.getElementById('yt-player-wrap');
   // DÜZENLE: YouTube video ID'sini buraya yaz
-  const YT_VIDEO_ID = 'aJOTlE1K90k';
+  const YT_VIDEO_ID = 'gRjsXfD6ivo';
   let ytPlaying = false;
   let ytFrame   = null;
 
@@ -530,9 +530,10 @@
     const iframe = document.createElement('iframe');
     iframe.width = '1'; iframe.height = '1';
     iframe.allow = 'autoplay';
-    iframe.src = 'https://www.youtube.com/embed/' + gRjsXfD6ivo +
-                 '?autoplay=1&loop=1&playlist=' + RDgRjsXfD6ivo +
-                 '&controls=0&disablekb=1&fs=0&iv_load_policy=3&modestbranding=1&rel=0';
+    // ?autoplay=1&loop=1&playlist=ID ile sürekli çalar, enablejsapi=1 postMessage için şart!
+    iframe.src = 'https://www.youtube.com/embed/' + YT_VIDEO_ID +
+                 '?autoplay=1&loop=1&playlist=' + YT_VIDEO_ID +
+                 '&controls=0&disablekb=1&fs=0&iv_load_policy=3&modestbranding=1&rel=0&enablejsapi=1';
     ytWrap.appendChild(iframe);
     ytFrame = iframe;
   }

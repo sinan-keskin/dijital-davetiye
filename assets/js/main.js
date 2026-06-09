@@ -177,22 +177,62 @@ document.addEventListener('DOMContentLoaded', function () {
   const modalBackdrop = document.querySelector('.modal-backdrop');
   const modalClose = document.querySelector('.modal-close');
 
+  /* Modal scroll lock helpers */
+  let _scrollY = 0;
+
+  function lockScroll() {
+    _scrollY = window.scrollY;
+    document.body.style.overflow    = 'hidden';
+    document.body.style.position    = 'fixed';
+    document.body.style.top         = '-' + _scrollY + 'px';
+    document.body.style.width       = '100%';
+  }
+
+  function unlockScroll() {
+    document.body.style.overflow = '';
+    document.body.style.position = '';
+    document.body.style.top      = '';
+    document.body.style.width    = '';
+    window.scrollTo({ top: _scrollY, behavior: 'instant' });
+  }
+
   function openModal(sablonId, sablonName) {
     if (!modal) return;
-    modalIframe.src = '../' + sablonId + '/index.html';
+    modalIframe.src = sablonId + '/index.html';
     if (modalTitle) modalTitle.textContent = sablonName + ' — Önizleme';
     if (modalTemplateName) modalTemplateName.textContent = sablonName;
     const msg = 'Merhaba! ' + sablonName + ' şablonu hakkında fiyat almak istiyorum. 🎉';
     if (modalQuoteBtn) modalQuoteBtn.href = 'https://t.me/sinankeeeee?text=' + encodeURIComponent(msg);
     modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
+    lockScroll();
+    // iframe yüklenince focus ver — scroll olayları doğrudan iframe'e gitsin
+    modalIframe.addEventListener('load', function onLoad() {
+      modalIframe.focus();
+      modalIframe.removeEventListener('load', onLoad);
+    });
   }
 
   function closeModal() {
     if (!modal) return;
     modal.classList.remove('active');
-    document.body.style.overflow = '';
+    unlockScroll();
     setTimeout(function () { if (modalIframe) modalIframe.src = ''; }, 400);
+  }
+
+  // Backdrop üzerindeki wheel/touch olaylarını tut — sadece kapatılmasını önle
+  if (modal) {
+    modal.addEventListener('wheel', function (e) {
+      // Eğer olay iframe içinden gelmediyse durdur
+      if (e.target === modal || e.target === modalBackdrop) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    }, { passive: false });
+    modal.addEventListener('touchmove', function (e) {
+      if (e.target === modal || e.target === modalBackdrop) {
+        e.preventDefault();
+      }
+    }, { passive: false });
   }
 
   if (modalBackdrop) modalBackdrop.addEventListener('click', closeModal);
